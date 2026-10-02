@@ -26,4 +26,4 @@ jobs:
         run: |
           mvn clean verify sonar:sonar \
             -Dsonar.projectKey=devsecops-training-app \
-            -Dsonar.host.url=http://ltvm08:9000
+            -Dsonar.host.url=https://sonar.bkmg.com
