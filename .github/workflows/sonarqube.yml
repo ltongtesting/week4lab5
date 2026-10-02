@@ -1,0 +1,29 @@
+name: Static Application Security Testing
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  static-analysis:
+    runs-on: [self-hosted, linux, sonarqube]
+
+    steps:
+      - name: Extract Source Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Initialize Java 17
+        uses: actions/setup-java@de7274f7... # v6.0.1
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Execute SonarQube Scanning Process
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=devsecops-training-app \
+            -Dsonar.host.url=http://ltvm08:9000
